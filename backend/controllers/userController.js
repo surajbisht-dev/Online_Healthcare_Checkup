@@ -4,8 +4,8 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import userRouter from "./../routes/userRoute.js";
 import { v2 as cloudinary } from "cloudinary";
-import doctorModel from "./../models/doctorModel";
-import appointmentModel from "./../models/appointmentModel";
+import doctorModel from "./../models/doctorModel.js";
+import appointmentModel from "./../models/appointmentModel.js";
 import razorpay from "razorpay";
 
 // API to register user
@@ -244,7 +244,7 @@ const paymentRazorpay = async (req, res) => {
       receipt: appointmentId,
     };
     // creation of an order
-    const order = await rozorpayInstance.orders.create(options);
+    const order = await razorpayInstance.orders.create(options);
     res.json({ success: true, order });
   } catch (error) {
     console.log(error);

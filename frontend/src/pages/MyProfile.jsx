@@ -13,7 +13,7 @@ const MyProfile = () => {
 
   const updateUserProfileData = async () => {
     try {
-      const formData = new formData();
+      const formData = new FormData();
 
       formData.append("name", userData.name);
       formData.append("phone", userData.phone);
@@ -50,7 +50,11 @@ const MyProfile = () => {
             <div className="inline-block relative cursor-pointer">
               <img
                 className="w-36 rounded opacity-75"
-                src={image ? URL.createObjectURL(image) : userData.image}
+                src={
+                  image
+                    ? URL.createObjectURL(image)
+                    : userData.image || assets.defaultProfile
+                }
                 alt=" "
               />
               <img
@@ -60,7 +64,7 @@ const MyProfile = () => {
               />
             </div>
             <input
-              onChang={(e) => setImage(e.target.files[0])}
+              onChange={(e) => setImage(e.target.files[0])}
               type="file"
               id="image"
               hidden
@@ -115,7 +119,7 @@ const MyProfile = () => {
                       address: { ...prev.address, line1: e.target.value },
                     }))
                   }
-                  value={userData.address.line2}
+                  value={userData.address.line1}
                 />
                 <br />
                 <input
