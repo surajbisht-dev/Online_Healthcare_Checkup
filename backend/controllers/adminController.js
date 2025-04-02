@@ -138,7 +138,7 @@ const allDoctors = async (req, res) => {
 const appointmentsAdmin = async (req, res) => {
   try {
     const appointments = await appointmentModel.find({});
-    res.json({ success: true, appointmentModel });
+    res.json({ success: true, appointments });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -179,16 +179,17 @@ const appointmentCancel = async (req, res) => {
 //Api to get dashboard data for admin panel
 const adminDashboard = async (req, res) => {
   try {
-    const doctor = await doctorModel.find({});
+    const doctors = await doctorModel.find({});
     const users = await userModel.find({});
-    const appointments = appointmentModel.find({});
+    const appointments = await appointmentModel.find({}); //  Added 'await'
 
     const dashData = {
       doctors: doctors.length,
       appointments: appointments.length,
-      patients: userModel.length,
+      patients: users.length, //  Fixed user count
       latestAppointments: appointments.reverse().slice(0, 5),
     };
+
     res.json({ success: true, dashData });
   } catch (error) {
     console.log(error);

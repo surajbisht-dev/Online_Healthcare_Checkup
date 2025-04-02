@@ -69,46 +69,63 @@ const appointmentsDoctor = async (req, res) => {
 };
 
 //API to mark appointment completed for doctor panel
+// API to mark appointment completed for doctor panel
 const appointmentComplete = async (req, res) => {
   try {
     const { docId, appointmentId } = req.body;
-    console.log(docId);
 
-    const appointmentData = appointmentModel.findById(appointmentId);
-    console.log(appointmentData);
+    const appointmentData = await appointmentModel.findById(appointmentId); // Await the result
+    if (!appointmentData) {
+      return res.json({ success: false, message: "Appointment not found" });
+    }
 
-    if (appointmentData && appointmentData.docId === docId) {
+    if (appointmentData.docId.toString() === docId) {
       await appointmentModel.findByIdAndUpdate(appointmentId, {
         isCompleted: true,
       });
       return res.json({ success: true, message: "Appointment Completed" });
     } else {
-      return res.json({ success: false, message: "Mark Failed" });
+      return res.json({
+        success: false,
+        message: "Marking appointment failed. Doctor ID mismatch.",
+      });
     }
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      message: "Error completing appointment: " + error.message,
+    });
   }
 };
 
-//API to Cancel appointment completed for doctor panel
+// API to cancel an appointment for the doctor panel
 const appointmentCancel = async (req, res) => {
   try {
     const { docId, appointmentId } = req.body;
 
-    const appointmentData = appointmentModel.findById(appointmentId);
+    const appointmentData = await appointmentModel.findById(appointmentId); // Await the result
+    if (!appointmentData) {
+      return res.json({ success: false, message: "Appointment not found" });
+    }
 
-    if (appointmentData && appointmentData.docId === docId) {
+    if (appointmentData.docId.toString() === docId) {
       await appointmentModel.findByIdAndUpdate(appointmentId, {
         cancelled: true,
       });
       return res.json({ success: true, message: "Appointment Cancelled" });
     } else {
-      return res.json({ success: false, message: "Cancellation Failed" });
+      return res.json({
+        success: false,
+        message: "Cancellation failed. Doctor ID mismatch.",
+      });
     }
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      message: "Error canceling appointment: " + error.message,
+    });
   }
 };
 

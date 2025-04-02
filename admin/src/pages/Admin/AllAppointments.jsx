@@ -12,7 +12,7 @@ const AllAppointments = () => {
 
   useEffect(() => {
     if (aToken) {
-      getAllAppointments;
+      getAllAppointments();
     }
   }, [aToken]);
 
