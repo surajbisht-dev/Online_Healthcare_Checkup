@@ -7,8 +7,11 @@ const AppContextProvider = (props) => {
   const calculateAge = (dob) => {
     const today = new Date();
     const birDate = new Date(dob);
+    // console.log(birDate);
 
     let age = today.getFullYear() - birDate.getFullYear();
+    // console.log(age);
+
     return age;
   };
 
