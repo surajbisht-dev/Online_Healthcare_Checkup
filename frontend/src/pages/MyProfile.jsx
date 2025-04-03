@@ -14,23 +14,30 @@ const MyProfile = () => {
   const updateUserProfileData = async () => {
     try {
       const formData = new FormData();
-
       formData.append("name", userData.name);
       formData.append("phone", userData.phone);
       formData.append("address", JSON.stringify(userData.address));
       formData.append("gender", userData.gender);
       formData.append("dob", userData.dob);
 
-      image && formData.append("image", image);
+      if (image) {
+        formData.append("image", image);
+      }
 
       const { data } = await axios.post(
         backendUrl + "/api/user/update-profile",
         formData,
         { headers: { token } }
       );
+
       if (data.success) {
         toast.success(data.message);
-        await loadUserProfileData();
+        await loadUserProfileData(); // Fetch latest user data
+        <img
+          className="w-36 rounded"
+          src={userData?.image ? userData.image : "/default-profile.png"}
+          alt="Profile"
+        />; // Ensure state updates
         setIsEdit(false);
         setImage(false);
       } else {
@@ -53,15 +60,18 @@ const MyProfile = () => {
                 src={
                   image
                     ? URL.createObjectURL(image)
-                    : userData.image || assets.defaultProfile
+                    : userData?.image || assets.defaultProfile // Use optional chaining (?.)
                 }
-                alt=" "
+                alt="Profile"
               />
-              <img
-                className="w-10 absolute bottom-12 right-12"
-                src={image ? "" : assets.upload_icon}
-                alt=" "
-              />
+
+              {!image && (
+                <img
+                  className="w-10 absolute bottom-12 right-12"
+                  src={assets.upload_icon}
+                  alt="Upload Icon"
+                />
+              )}
             </div>
             <input
               onChange={(e) => setImage(e.target.files[0])}

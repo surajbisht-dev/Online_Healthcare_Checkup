@@ -35,6 +35,7 @@ const AllAppointments = () => {
             className="flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b hover:b hover:bg-gray-50"
             key={index}
           >
+            {console.log(item.userData.image)}
             <p className="max-sm:hidden">{index + 1}</p>
             <div className="flex items-center gap-2">
               <img
@@ -53,7 +54,7 @@ const AllAppointments = () => {
                 className="w-8 rounded-full bg-gray-200"
                 src={item.docData.image}
                 alt=""
-              />{" "}
+              />
               <p>{item.docData.name}</p>
             </div>
             <p>
