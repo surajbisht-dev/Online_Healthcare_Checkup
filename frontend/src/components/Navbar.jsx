@@ -40,6 +40,13 @@ const Navbar = () => {
           <li className="py-1">CONTACT</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden " />
         </NavLink>
+
+        <NavLink to="http://localhost:5174/api/admin/login">
+          <button class="px-4 py-2 bg-gray-300 text-black font-semibold rounded-full shadow-md hover:bg-blue-500 hover:text-gray-200 transition-all duration-300">
+            Admin
+          </button>
+          <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden " />
+        </NavLink>
       </ul>
       <div className="flex items-center gap-4 ">
         {token && userData ? (
@@ -69,7 +76,7 @@ const Navbar = () => {
         ) : (
           <button
             onClick={() => navigate("/login")}
-            className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block "
+            className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block hover:bg-blue-700 hover:text-gray-300 transition-all duration-300"
           >
             Create Account
           </button>
@@ -107,6 +114,14 @@ const Navbar = () => {
             </NavLink>
             <NavLink onClick={() => setShowMenu(false)} to="/contact">
               <p className="px-4 py-2 rounded inline-block">CONTACT</p>
+            </NavLink>
+            <NavLink
+              onClick={() => setShowMenu(false)}
+              to="http://localhost:5174/api/admin/login"
+            >
+              <button class="px-4 py-2 bg-gray-300 text-black font-semibold rounded-full shadow-md hover:bg-blue-500 hover:text-gray-200 transition-all duration-300">
+                Admin
+              </button>
             </NavLink>
           </ul>
         </div>

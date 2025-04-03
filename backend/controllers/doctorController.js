@@ -135,6 +135,7 @@ const doctorProfile = async (req, res) => {
     const { docId } = req.body;
     const profileData = await doctorModel.findById(docId).select("-password");
     res.json({ success: true, profileData });
+    console.log(profileData);
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });

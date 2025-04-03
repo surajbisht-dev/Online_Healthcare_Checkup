@@ -17,6 +17,8 @@ const DoctorProfile = () => {
         address: profileData.address,
         fees: profileData.fees,
         available: profileData.available,
+        degree: profileData.degree, // Ensure degree is included
+        experience: profileData.experience, // Ensure experience is included
       };
 
       const { data } = await axios.post(
@@ -61,10 +63,12 @@ const DoctorProfile = () => {
             </p>
             <div className="flex items-center gap-2 mt-1 text-gray-600">
               <p>
-                {profileData.degree} - {profileData.speciality}
+                {profileData.degree || "N/A"} -{" "}
+                {profileData.speciality || "N/A"}
               </p>
               <button className="py-0.5 px-2 border text-xs rounded-full">
-                {profileData.experience}
+                {/* {console.log(profileData.experience)} */}
+                {profileData.experience || "N/A"}
               </button>
             </div>
             {/* ----- Doc About ----- */}

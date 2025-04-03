@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { assets } from "../../assets/assets";
-import { useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
 import { toast } from "react-toastify";
-import { useContext } from "react";
 import axios from "axios";
 
 const AddDoctor = () => {
@@ -24,61 +22,51 @@ const AddDoctor = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    try {
-      if (!docImg) {
-        return toast.error("Image not Selected");
-      }
+    if (!docImg) {
+      return toast.error("Image not Selected");
+    }
 
-      const formData = new FormData();
-      formData.append("image", docImg);
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("experience", experience);
-      formData.append("fees", Number(fees));
-      formData.append("about", about);
-      formData.append("speciality", speciality);
-      formData.append("degree", degree);
-      formData.append(
-        "address",
-        JSON.stringify({ line1: address1, line2: address2 })
+    const formData = new FormData();
+    formData.append("image", docImg);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("experience", experience);
+    formData.append("fees", Number(fees));
+    formData.append("about", about);
+    formData.append("speciality", speciality);
+    formData.append("degree", degree);
+    formData.append(
+      "address",
+      JSON.stringify({ line1: address1, line2: address2 })
+    );
+
+    try {
+      const { data } = await axios.post(
+        backendurl + "/api/admin/add-doctor",
+        formData,
+        { headers: { aToken } }
       );
 
-      // Console log formData
-      formData.forEach((value, key) => {
-        console.log(`${key} : ${value}`);
-      });
-
-      try {
-        const { data } = await axios.post(
-          backendurl + "/api/admin/add-doctor",
-          formData,
-          { headers: { aToken } }
-        );
-        console.log(data);
-
-        if (data.success) {
-          toast.success(data.message);
-          setDocImg(false);
-          setPassword("");
-          setEmail("");
-          setAddress1("");
-          setAddress2("");
-          setDegree("");
-          setAbout("");
-          setFees("");
-        } else {
-          toast.error(data.message);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        toast.error("Failed to add doctor. Please try again.");
+      if (data.success) {
+        toast.success(data.message);
+        setDocImg(false);
+        setPassword("");
+        setEmail("");
+        setAddress1("");
+        setAddress2("");
+        setDegree("");
+        setAbout("");
+        setFees("");
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      console.error("Unexpected Error:", error);
-      toast.error("Something went wrong. Please try again.");
+      console.error("Error:", error);
+      toast.error("Failed to add doctor. Please try again.");
     }
   };
+
   return (
     <form onSubmit={onSubmitHandler} className="m-5 w-full">
       <p className="mb-3 text-lg font-medium">Add Doctor</p>
@@ -102,132 +90,130 @@ const AddDoctor = () => {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-grow items-start gap-10 text-gray-600">
-          <div className="w-full lg:flex-1 flex flex-col gap-4">
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Doctor name</p>
+        <div className="grid grid-cols-2 gap-10 text-gray-600">
+          <div className="flex flex-col gap-4">
+            <div>
+              <p>Doctor Name</p>
               <input
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="text"
                 placeholder="Name"
                 required
               />
             </div>
-            <div className="flex-1 flex flex-col gap-1">
+            <div>
               <p>Doctor Email</p>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="email"
                 placeholder="Email"
                 required
               />
             </div>
-            <div className="flex-1 flex flex-col gap-1">
+            <div>
               <p>Doctor Password</p>
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="password"
                 placeholder="Password"
                 required
               />
             </div>
-            <div className="flex-1 flex flex-col gap-1">
+            <div>
               <p>Experience</p>
               <select
                 onChange={(e) => setExperience(e.target.value)}
                 value={experience}
-                className="border-rounded px-3 py-2"
-                name=""
-                id=""
+                className="border px-3 py-2 w-full"
               >
-                <option value=" 1 Year">1 Year</option>
-                <option value=" 2 Year">2 Year</option>
-                <option value=" 3 Year">3 Year</option>
-                <option value=" 4 Year">4 Year</option>
-                <option value=" 5 Year">5 Year</option>
-                <option value=" 6 Year">6 Year</option>
-                <option value=" 7 Year">7 Year</option>
-                <option value=" 8 Year">8 Year</option>
-                <option value=" 9 Year">9 Year</option>
-                <option value=" 10 Year">10 Year</option>
+                {[...Array(10)].map((_, i) => (
+                  <option key={i} value={`${i + 1} Year`}>{`${
+                    i + 1
+                  } Years`}</option>
+                ))}
               </select>
             </div>
-            <div className="flex-1 flex flex-col gap-1">
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div>
               <p>Fees</p>
               <input
                 onChange={(e) => setFees(e.target.value)}
                 value={fees}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="number"
-                placeholder="fees"
+                placeholder="Fees"
                 required
               />
             </div>
-          </div>
-          {/* here */}
-          <div className="w-full lg:flex-1 flex flex-col gap-4">
-            <div className="flex-1 flex flex-col gap-1">
+            <div>
               <p>Speciality</p>
               <select
                 onChange={(e) => setSpeciality(e.target.value)}
                 value={speciality}
-                className="border-rounded px-3 py-2"
-                name=""
-                id=""
+                className="border px-3 py-2 w-full"
               >
-                <option value="General physician">General physician</option>
-                <option value="Gynecologist">Gynecologist</option>
-                <option value="Dermatologist">Dermatologist</option>
-                <option value="Pediatricians">Pediatricians</option>
-                <option value="Neurologist">Neurologist</option>
-                <option value="Gastroenterologist">Gastroenterologist</option>
+                {[
+                  "General physician",
+                  "Gynecologist",
+                  "Dermatologist",
+                  "Pediatricians",
+                  "Neurologist",
+                  "Gastroenterologist",
+                ].map((spec) => (
+                  <option key={spec} value={spec}>
+                    {spec}
+                  </option>
+                ))}
               </select>
             </div>
-            <div className="flex-1 flex flex-col gap-1">
+            <div>
               <p>Education</p>
               <input
                 onChange={(e) => setDegree(e.target.value)}
                 value={degree}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="text"
                 placeholder="Education"
                 required
               />
             </div>
-            <div className="flex-1 flex flex-col gap-1">
+            <div>
               <p>Address</p>
               <input
                 onChange={(e) => setAddress1(e.target.value)}
                 value={address1}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="text"
-                placeholder="address 1"
+                placeholder="Address 1"
                 required
               />
               <input
                 onChange={(e) => setAddress2(e.target.value)}
                 value={address2}
-                className="border-rounded px-3 py-2"
+                className="border px-3 py-2 w-full"
                 type="text"
-                placeholder="address 2"
+                placeholder="Address 2"
                 required
               />
             </div>
           </div>
         </div>
+
         <div>
           <p className="mt-4 mb-2">About Doctor</p>
           <textarea
             onChange={(e) => setAbout(e.target.value)}
             value={about}
             className="w-full px-4 pt-2 border rounded"
-            placeholder="write about doctor"
+            placeholder="Write about doctor"
             rows={5}
             required
           />
@@ -242,4 +228,5 @@ const AddDoctor = () => {
     </form>
   );
 };
+
 export default AddDoctor;
