@@ -41,7 +41,7 @@ const Navbar = () => {
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden " />
         </NavLink>
 
-        <NavLink to="http://localhost:5174/api/admin/login">
+        <NavLink to="https://online-healthcare-checkup.onrender.com">
           <button class="px-4 py-2 bg-gray-300 text-black font-semibold rounded-full shadow-md hover:bg-blue-500 hover:text-gray-200 transition-all duration-300">
             Admin
           </button>
@@ -117,7 +117,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               onClick={() => setShowMenu(false)}
-              to="http://localhost:5174/api/admin/login"
+              to="https://online-healthcare-checkup.onrender.com"
             >
               <button class="px-4 py-2 bg-gray-300 text-black font-semibold rounded-full shadow-md hover:bg-blue-500 hover:text-gray-200 transition-all duration-300">
                 Admin

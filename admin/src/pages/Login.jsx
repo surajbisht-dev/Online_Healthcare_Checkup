@@ -53,7 +53,7 @@ const Login = () => {
       onSubmit={onSubmitHandler}
     >
       <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg">
-        <NavLink to="http://localhost:5173/">
+        <NavLink to="https://online-healthcare-checkup-frontend.onrender.com">
           <p className="underline hover:bg-gray-200 hover:text-black transition-colors duration-300">
             HOME
           </p>
