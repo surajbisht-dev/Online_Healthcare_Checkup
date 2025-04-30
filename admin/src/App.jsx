@@ -20,53 +20,37 @@ const App = () => {
   const { aToken } = useContext(AdminContext);
   const { dToken } = useContext(DoctorContext);
 
-  if (aToken) {
-    // Admin Logged In
-    return (
-      <div className="bg-[#F8F9FD]">
-        <ToastContainer />
-        <Navbar />
-        <div className="flex items-start">
-          <Sidebar />
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/admin-dashboard" element={<Dashboard />} />
-            <Route path="/all-appointments" element={<AllAppointments />} />
-            <Route path="/add-doctor" element={<AddDoctor />} />
-            <Route path="/doctor-list" element={<DoctorsList />} />
-          </Routes>
-        </div>
+  return aToken || dToken ? (
+    <div className="bg-[#F8F9FD]">
+      <ToastContainer />
+      <Navbar />
+      <div className="flex items-start">
+        <Sidebar />
+        <Routes>
+          {/* Admin Route */}
+          <Route path="/" element={<></>}></Route>
+          <Route path="/admin-dashboard" element={<Dashboard />}></Route>
+          <Route path="/all-appointments" element={<AllAppointments />}></Route>
+          <Route path="/add-doctor" element={<AddDoctor />}></Route>
+          <Route path="/doctor-list" element={<DoctorsList />}></Route>
+
+          {/* Doctor Route */}
+
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />}></Route>
+          <Route
+            path="/doctor-appointments"
+            element={<DoctorAppointment />}
+          ></Route>
+          <Route path="/doctor-profile" element={<DoctorProfile />}></Route>
+        </Routes>
       </div>
-    );
-  } else if (dToken) {
-    // Doctor Logged In
-    return (
-      <div className="bg-[#F8F9FD]">
-        <ToastContainer />
-        <Navbar />
-        <div className="flex items-start">
-          <Sidebar />
-          <Routes>
-            <Route path="/" element={<DoctorDashboard />} />
-            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-            <Route
-              path="/doctor-appointments"
-              element={<DoctorAppointment />}
-            />
-            <Route path="/doctor-profile" element={<DoctorProfile />} />
-          </Routes>
-        </div>
-      </div>
-    );
-  } else {
-    // No one logged in
-    return (
-      <>
-        <Login />
-        <ToastContainer />
-      </>
-    );
-  }
+    </div>
+  ) : (
+    <>
+      <Login />
+      <ToastContainer />
+    </>
+  );
 };
 
 export default App;
