@@ -37,7 +37,7 @@ const AppContextProvider = (props) => {
       dateArray[0] + " " + months[Number(dateArray[1])] + " " + dateArray[2]
     );
   };
-  // value
+
   const value = {
     calculateAge,
     slotDateFormat,
@@ -49,5 +49,3 @@ const AppContextProvider = (props) => {
 };
 
 export default AppContextProvider;
-
-//commit
