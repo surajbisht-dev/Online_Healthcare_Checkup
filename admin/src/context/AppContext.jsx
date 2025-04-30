@@ -1,41 +1,48 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 
 export const AppContext = createContext();
-
 const AppContextProvider = (props) => {
-  const [loading, setLoading] = useState(false);
-  const [currency, setCurrency] = useState("₹");
+  const currency = "$";
 
   const calculateAge = (dob) => {
-    const birthDate = new Date(dob);
     const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
+    const birDate = new Date(dob);
+    // console.log(birDate);
+
+    let age = today.getFullYear() - birDate.getFullYear();
+    // console.log(age);
+
     return age;
   };
 
-  const slotDateFormat = (dateStr) => {
-    const date = new Date(dateStr);
-    const offset = date.getTimezoneOffset(); // get timezone offset in minutes
-    date.setMinutes(date.getMinutes() - offset); // adjust for local timezone
-    return date.toISOString().split("T")[0]; // keep format 'YYYY-MM-DD'
+  const months = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const slotDateFormat = (slotDate) => {
+    const dateArray = slotDate.split("_");
+    return (
+      dateArray[0] + " " + months[Number(dateArray[1])] + " " + dateArray[2]
+    );
   };
 
   const value = {
-    loading,
-    setLoading,
-    currency,
-    setCurrency,
     calculateAge,
     slotDateFormat,
+    currency,
   };
-
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );
