@@ -1,34 +1,31 @@
-# 🩺 Online Health Management System
+🩺 Online Health Management System
+A full-stack web application developed by Suraj Bisht and [Gaurav Chandra Nainwal], designed to streamline health-related services. It allows patients to book appointments, doctors to manage consultations, and admins to oversee the platform efficiently. Includes online payment integration via Razorpay.
 
-A full-stack web application developed by **Suraj bisht** and **[Gaurav chandra nainwal]** to streamline health-related services. It enables patients to book appointments, doctors to manage consultations, and admins to oversee the platform with powerful tools. Includes **online payment support via Razorpay**.
+🌐 Live Demo
+👉 Click Here to Visit the Live App
 
-### 🌐 Live Demo  
-👉 [Click Here to Visit the Live App](https://online-healthcare-checkup-frontend.onrender.com)
+📌 Features
+✅ Patient & Doctor Registration/Login
 
----
+📅 Appointment Booking with Time Slot Management
 
-## 📌 Features
+🛠️ Admin Dashboard to manage Users, Doctors & Appointments
 
-- ✅ Patient & Doctor Registration/Login
-- 📅 Appointment Booking with Time Slots
-- 🛠️ **Admin Dashboard** for managing users, doctors & appointments
-- 💳 **Razorpay Integration** for secure online appointment payments
-- 📈 Personalized Dashboards for Patients & Doctors
-- 🔐 Secure JWT-Based Authentication
+💳 Razorpay Integration for Secure Online Payments
 
----
+📈 Personalized Dashboards for Both Patients and Doctors
 
-## 🛠️ Tech Stack
+🔐 JWT-Based Secure Authentication
 
-**Frontend**  
-- React.js, Tailwind CSS, Axios
+🛠️ Tech Stack
+Frontend
 
-**Backend**  
-- Node.js, Express.js, MongoDB (Mongoose), JWT, Multer
+React.js, Tailwind CSS, Axios
 
-**Payments**  
-- Razorpay API for secure and fast transactions
+Backend
 
----
+Node.js, Express.js, MongoDB (Mongoose), JWT, Multer
 
+Payments
 
+Razorpay API for secure and reliable transactions
