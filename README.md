@@ -5,7 +5,7 @@ A modern full-stack web application built by Suraj Bisht and [Gaurav Chandra Nai
 ✨ Now with online payment support via Razorpay for hassle-free transactions!
 
 🚀 Live Demo
-🔗 Check Out the Live Application
+🔗 Check Out the Live Application - https://online-healthcare-checkup-1.onrender.com
 
 🌟 Core Features
 👤 User Roles: Patient, Doctor & Admin – each with personalized dashboards
